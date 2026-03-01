@@ -266,6 +266,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
       <span style="font-size:22px;">🎯</span>はじめる！
     </button>
     <div id="brk-hint" style="font-size:11px;font-weight:600;color:#88a8c0;margin-top:10px;text-align:center;">チャイムが鳴ったらはじめよう</div>
+    <button id="brk-early" onclick="earlyStart()" style="margin-top:10px;width:100%;background:none;border:2px solid #b8d8ee;border-radius:14px;padding:9px;font-family:var(--font);font-size:12px;font-weight:700;color:#88a8c0;cursor:pointer;transition:color .15s,border-color .15s,background .15s;" onmouseover="this.style.color='#3a8eb8';this.style.borderColor='#3a8eb8';this.style.background='#eaf6ff';" onmouseout="this.style.color='#88a8c0';this.style.borderColor='#b8d8ee';this.style.background='none';">もう元気！ はじめる →</button>
   </div>
 </div>
 
@@ -491,10 +492,15 @@ function onBrkDone() {
   setSp('brk-speech','やすめた？またがんばろう！💪');
   document.getElementById('brk-ideas').style.display='none';
   document.getElementById('brk-hint').style.display='none';
+  document.getElementById('brk-early').style.display='none';
   document.getElementById('brk-label').textContent='';
   document.getElementById('brk-unit').textContent='やすみおわり！';
   const btn=document.getElementById('brk-start');
   btn.style.display='flex';
+}
+function earlyStart() {
+  clearInterval(brkTid);
+  restartSession();
 }
 function restartSession() {
   S.sessionNum++;
