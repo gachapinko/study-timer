@@ -119,9 +119,8 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
       </button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <button id="home-rw-btn" onclick="goReward()" style="background:#ffe8f5;border:2.5px solid #ffb3c6;border-radius:14px;padding:11px 6px;cursor:pointer;font-family:var(--font);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;color:#9c0050;transition:transform .15s;position:relative;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
-        <span id="home-rw-badge" style="position:absolute;top:-8px;right:-8px;background:#ffd94a;border:2px solid white;border-radius:10px;font-size:9px;font-weight:900;color:#7a5000;padding:1px 5px;">⭐1てん</span>
-        <span style="font-size:17px;">🍩</span>ごほうびタイム
+      <button onclick="goScreen('s-prestart')" style="background:#e8f0ff;border:2.5px solid #c0d0f8;border-radius:14px;padding:11px 6px;cursor:pointer;font-family:var(--font);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;color:#3a5ab8;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+        <span style="font-size:17px;">⏰</span>はじめるタイマー
       </button>
       <button onclick="gotoRecord()" style="background:#eef2ff;border:2.5px solid #c5d0f8;border-radius:14px;padding:11px 6px;cursor:pointer;font-family:var(--font);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;color:#3a4faa;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
         <span style="font-size:17px;">📊</span>きろく
@@ -240,6 +239,55 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
     <button onclick="goScreen('s-home')" class="btn" style="background:#f0f2ff;color:#3a4faa;border:2px solid #d8deff;box-shadow:0 3px 12px rgba(100,120,220,.08);margin-bottom:0;">
       <span class="bi">🏠</span><span class="bt">ホームへ<span class="bs">きょうはここまで！おつかれさま</span></span>
     </button>
+  </div>
+</div>
+
+<!-- ══ PRESTART SELECT ══ -->
+<div id="s-prestart" class="screen" style="background:#eef2ff;">
+  <div class="blob" style="width:280px;height:280px;background:rgba(160,180,240,.2);top:-70px;right:-60px;"></div>
+  <div class="blob" style="width:200px;height:200px;background:rgba(180,200,255,.22);bottom:-50px;left:-50px;"></div>
+  <div class="card anim" style="box-shadow:0 8px 40px rgba(80,100,220,.12);">
+    <div class="hrow">
+      <button class="back-btn" style="color:#3a5ab8;" onclick="goScreen('s-home')">←</button>
+      <span style="font-size:13px;font-weight:800;color:#8090c0;">⏰ はじめるタイマー</span>
+      <div style="width:40px;"></div>
+    </div>
+    <img id="prestart-cat" class="cat-img" style="width:96px;height:96px;margin-bottom:8px;animation:catSway 3s ease-in-out infinite;" alt="">
+    <div class="speech" style="background:#e8f0ff;border:2px solid #b0c4f8;color:#3a5ab8;margin-bottom:20px;">なんぷんしたらはじめる？🌙</div>
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <button class="btn" onclick="startPrestart(5)" style="background:linear-gradient(145deg,#dde8ff,#c0d4ff);color:#2a4ab0;box-shadow:0 4px 18px rgba(80,120,240,.18);">
+        <span class="bi">⏰</span><span class="bt">5分後にはじめる<span class="bs">ちょっとだけ準備してから！</span></span><span style="opacity:.6;">→</span>
+      </button>
+      <button class="btn" onclick="startPrestart(10)" style="background:linear-gradient(145deg,#d4dcff,#b0c0f8);color:#1a3aa0;box-shadow:0 4px 18px rgba(60,100,220,.2);margin-bottom:0;">
+        <span class="bi">⏰</span><span class="bt">10分後にはじめる<span class="bs">もうすこしゆっくりしてから！</span></span><span style="opacity:.6;">→</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRESTART TIMER ══ -->
+<div id="s-prestart-timer" class="screen" style="background:#eef2ff;">
+  <div class="blob" style="width:300px;height:300px;background:rgba(160,180,240,.2);top:-80px;right:-60px;"></div>
+  <div class="blob" style="width:220px;height:220px;background:rgba(180,200,255,.22);bottom:-60px;left:-50px;"></div>
+  <div class="card anim" style="box-shadow:0 8px 48px rgba(80,100,220,.12);">
+    <div style="font-size:14px;font-weight:800;color:#8090c0;margin-bottom:16px;">⏰ はじめるタイマー</div>
+    <img id="pst-cat" class="cat-img" style="width:96px;height:96px;margin-bottom:8px;animation:catSway 3s ease-in-out infinite;" alt="">
+    <div id="pst-speech" class="speech" style="background:#e8f0ff;border:2px solid #b0c4f8;color:#3a5ab8;"></div>
+    <div class="ring-wrap" style="width:200px;height:200px;">
+      <svg class="ring-svg" viewBox="0 0 200 200">
+        <circle class="ring-track" cx="100" cy="100" r="86" stroke="#d8e0f8"/>
+        <circle class="ring-progress" cx="100" cy="100" r="86" stroke="#7090e8" id="pst-ring"/>
+      </svg>
+      <div class="ring-inner">
+        <div class="ring-label" id="pst-label">あと</div>
+        <div class="ring-digits" id="pst-digits">05:00</div>
+        <div class="ring-unit" id="pst-unit">でスタート 📚</div>
+      </div>
+    </div>
+    <button id="pst-go-btn" onclick="onPrestartDone()" style="width:100%;background:linear-gradient(145deg,#6070e8,#4050d0);border:none;border-radius:20px;padding:20px;font-family:var(--font);font-size:18px;font-weight:900;color:white;cursor:pointer;box-shadow:0 6px 24px rgba(60,80,220,.3);display:none;align-items:center;justify-content:center;gap:10px;transition:transform .15s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+      <span style="font-size:22px;">📚</span>さあ、はじめよう！
+    </button>
+    <button class="quit-btn" onclick="cancelPrestart()">やめる</button>
   </div>
 </div>
 
@@ -363,13 +411,17 @@ function addSession() {
 
 // ══ 画面遷移 ══
 function goScreen(id) {
-  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
-  const el = document.getElementById(id);
-  el.classList.add('active');
-  el.querySelectorAll('.anim').forEach(c=>{c.style.animation='none';requestAnimationFrame(()=>{c.style.animation='';});});
-  if (id==='s-home')   initHome();
-  if (id==='s-record') initRecord();
-  if (id!=='s-reward') stopFoodRain();
+  try {
+    document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+    const el = document.getElementById(id);
+    if (!el) { console.error('screen not found:', id); return; }
+    el.classList.add('active');
+    el.querySelectorAll('.anim').forEach(c=>{c.style.animation='none';requestAnimationFrame(()=>{c.style.animation='';});});
+    if (id==='s-home')   initHome();
+    if (id==='s-record') initRecord();
+    if (id==='s-prestart') { const c=document.getElementById('prestart-cat'); if(c) c.src=CAT.sleep; }
+    if (id!=='s-reward') stopFoodRain();
+  } catch(e) { console.error('goScreen error:', e); }
 }
 
 // ══ HOME ══
@@ -379,9 +431,7 @@ function initHome() {
   const p = S.pts;
   document.getElementById('home-pts').textContent = p;
   document.getElementById('home-stars').textContent = '⭐'.repeat(Math.min(p, 5));
-  const btn=document.getElementById('home-rw-btn'), badge=document.getElementById('home-rw-badge');
-  if (p<1) { btn.style.opacity='.5'; btn.style.pointerEvents='none'; badge.textContent='⭐たりない'; }
-  else     { btn.style.opacity=''; btn.style.pointerEvents=''; badge.textContent='⭐1てん'; }
+
 }
 
 // ══ モード ══
@@ -477,15 +527,19 @@ const BRK_SP=['ゆっくりやすんでね〜☁️','目をとじてのんび�
 
 function goBreak() {
   clearInterval(brkTid); brkSec=600;
-  const R=86,C=2*Math.PI*R, ring=document.getElementById('brk-ring');
-  ring.style.strokeDasharray=C; ring.style.strokeDashoffset=0;
-  document.getElementById('brk-cat').src=CAT.sleep;
-  document.getElementById('brk-start').style.display='none';
-  document.getElementById('brk-hint').style.display='block';
-  document.getElementById('brk-ideas').style.display='block';
-  document.getElementById('brk-label').textContent='のこり';
-  document.getElementById('brk-unit').textContent='やすみちゅう ☕';
-  setSp('brk-speech',BRK_SP[0]); setBrkDisp(); goScreen('s-break');
+  // 先に画面遷移してからDOMを触る
+  goScreen('s-break');
+  const R=86,C=2*Math.PI*R;
+  const ring=document.getElementById('brk-ring');
+  if(ring){ring.style.strokeDasharray=C; ring.style.strokeDashoffset=0;}
+  const cat=document.getElementById('brk-cat'); if(cat) cat.src=CAT.sleep;
+  const bs=document.getElementById('brk-start'); if(bs) bs.style.display='none';
+  const bh=document.getElementById('brk-hint'); if(bh) bh.style.display='block';
+  const be=document.getElementById('brk-early'); if(be) be.style.display='block';
+  const bi=document.getElementById('brk-ideas'); if(bi) bi.style.display='block';
+  const bl=document.getElementById('brk-label'); if(bl) bl.textContent='のこり';
+  const bu=document.getElementById('brk-unit'); if(bu) bu.textContent='やすみちゅう ☕';
+  setSp('brk-speech',BRK_SP[0]); setBrkDisp();
   brkTid=setInterval(()=>{
     if(brkSec<=0){clearInterval(brkTid);onBrkDone();return;}
     brkSec--;setBrkDisp();
@@ -494,10 +548,16 @@ function goBreak() {
   },1000);
 }
 function setBrkDisp() {
-  document.getElementById('brk-digits').textContent=pad(Math.floor(brkSec/60))+':'+pad(brkSec%60);
-  document.getElementById('brk-digits').classList.toggle('soon',brkSec<=60);
-  const R=86,C=2*Math.PI*R;
-  document.getElementById('brk-ring').style.strokeDashoffset=C*(1-brkSec/600);
+  const digits=document.getElementById('brk-digits');
+  const ring=document.getElementById('brk-ring');
+  if(digits){
+    digits.textContent=pad(Math.floor(brkSec/60))+':'+pad(brkSec%60);
+    digits.classList.toggle('soon',brkSec<=60);
+  }
+  if(ring){
+    const R=86,C=2*Math.PI*R;
+    ring.style.strokeDashoffset=C*(1-brkSec/600);
+  }
 }
 function onBrkDone() {
   playBreakChime();
@@ -602,6 +662,57 @@ function initRecord() {
     </div>
   `;
   setTimeout(()=>{document.querySelectorAll('[data-h]').forEach(el=>{el.style.height=el.dataset.h+'px';});},80);
+}
+
+// ══ はじめるタイマー ══
+let pstTid = null, pstSec = 0, pstTotal = 0;
+const PST_SP = [
+  'もうすぐだよ〜🌙', 'じゅんびはいい？📚',
+  'あと半分！がんばれ〜', 'もうすこし！', 'そろそろだよ✨'
+];
+
+function startPrestart(min) {
+  clearInterval(pstTid);
+  pstTotal = min * 60; pstSec = pstTotal;
+  const R = 86, C = 2 * Math.PI * R;
+  const ring = document.getElementById('pst-ring');
+  ring.style.strokeDasharray = C; ring.style.strokeDashoffset = 0;
+  document.getElementById('pst-cat').src = CAT.sleep;
+  document.getElementById('pst-go-btn').style.display = 'none';
+  document.getElementById('pst-label').textContent = 'あと';
+  document.getElementById('pst-unit').textContent = 'でスタート 📚';
+  setPstDisp(); setSp('pst-speech', PST_SP[0]);
+  goScreen('s-prestart-timer');
+  pstTid = setInterval(() => {
+    if (pstSec <= 0) { clearInterval(pstTid); onPrestartAlarm(); return; }
+    pstSec--;
+    setPstDisp();
+    const idx = Math.floor((pstTotal - pstSec) / (pstTotal / PST_SP.length));
+    if (pstSec % Math.floor(pstTotal / PST_SP.length) === 0 && pstSec > 0) {
+      setSp('pst-speech', PST_SP[Math.min(idx, PST_SP.length - 1)]);
+    }
+  }, 1000);
+}
+function setPstDisp() {
+  document.getElementById('pst-digits').textContent = pad(Math.floor(pstSec/60))+':'+pad(pstSec%60);
+  document.getElementById('pst-digits').classList.toggle('soon', pstSec <= 60);
+  const R = 86, C = 2 * Math.PI * R;
+  document.getElementById('pst-ring').style.strokeDashoffset = C * (1 - pstSec / pstTotal);
+}
+function onPrestartAlarm() {
+  playBreakChime();
+  setSp('pst-speech', 'じかんだよ！がんばれ〜！📚');
+  document.getElementById('pst-label').textContent = '';
+  document.getElementById('pst-unit').textContent = 'スタートしよう！';
+  const btn = document.getElementById('pst-go-btn');
+  btn.style.display = 'flex';
+}
+function onPrestartDone() {
+  goScreen('s-home');
+}
+function cancelPrestart() {
+  clearInterval(pstTid);
+  goScreen('s-home');
 }
 
 // ══ フードレイン ══
