@@ -58,7 +58,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
 .cp { position:absolute; top:-20px; border-radius:2px; animation:cfFall linear forwards; }
 @keyframes cfFall { 0%{transform:translateY(0) rotate(0deg);opacity:1} 80%{opacity:1} 100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
 
-.snack-btn { background:#fff0d8; border:2.5px solid transparent; border-radius:14px; padding:9px 12px; font-size:21px; cursor:pointer; transition:transform .15s,border-color .15s; -webkit-tap-highlight-color:transparent; }
+.snack-btn { background:#fff0d8; border:2.5px solid transparent; border-radius:12px; padding:7px 9px; font-size:18px; cursor:pointer; transition:transform .15s,border-color .15s; -webkit-tap-highlight-color:transparent; }
 .snack-btn:hover { transform:scale(1.15); }
 .snack-btn.on { border-color:#ffcb8a; background:white; box-shadow:0 4px 14px rgba(220,120,30,.2); transform:scale(1.18); }
 
@@ -72,6 +72,8 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
 @keyframes eatBob      { from{transform:translateX(-50%) translateY(0) rotate(-3deg)} to{transform:translateX(-50%) translateY(-6px) rotate(3deg)} }
 @keyframes catSway     { 0%,100%{transform:rotate(-4deg)} 50%{transform:rotate(4deg)} }
 @keyframes breatheScale { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+@keyframes snackBob { from{transform:translateX(-50%) scale(1) rotate(-6deg)} to{transform:translateX(-50%) scale(1.12) rotate(6deg)} }
+@keyframes foodFall { 0%{transform:translateY(0) rotate(0deg);opacity:.8} 100%{transform:translateY(110vh) rotate(var(--rot,30deg));opacity:0} }
 </style>
 </head>
 <body>
@@ -82,11 +84,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
   <div class="blob" style="width:220px;height:220px;background:rgba(200,230,255,.28);bottom:-50px;left:-40px;"></div>
   <div class="card anim" style="box-shadow:0 8px 48px rgba(100,140,220,.13);">
     <div style="font-size:12px;font-weight:800;color:var(--text-light);margin-bottom:4px;letter-spacing:.04em;">いっしょにがんばるタイマー</div>
-    <!-- 音声解除バナー -->
-    <div id="sound-banner" onclick="unlockAudio()" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#fff0d8;border:2px solid #ffcb8a;border-radius:14px;padding:10px 16px;margin-bottom:12px;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#ffe8c0'" onmouseout="this.style.background='#fff0d8'">
-      <span style="font-size:20px;">🔔</span>
-      <span style="font-size:12px;font-weight:800;color:#a06010;">タップして音をオンにする</span>
-    </div>
+
     <!-- 吹き出し（猫の上に独立配置・尻尾は下向き） -->
     <div style="position:relative;display:inline-block;background:#fff3c0;border:2.5px solid #ffd94a;border-radius:18px;padding:7px 14px;font-size:12px;font-weight:800;color:var(--text);white-space:nowrap;animation:cardIn .5s .5s both;box-shadow:0 2px 8px rgba(255,210,80,.22);margin-bottom:14px;">
       きょうもいっしょに✨
@@ -117,7 +115,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       <button id="home-rw-btn" onclick="goReward()" style="background:#ffe8f5;border:2.5px solid #ffb3c6;border-radius:14px;padding:11px 6px;cursor:pointer;font-family:var(--font);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;color:#9c0050;transition:transform .15s;position:relative;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
         <span id="home-rw-badge" style="position:absolute;top:-8px;right:-8px;background:#ffd94a;border:2px solid white;border-radius:10px;font-size:9px;font-weight:900;color:#7a5000;padding:1px 5px;">⭐1てん</span>
-        <span style="font-size:17px;">🍩</span>ご褒美タイム
+        <span style="font-size:17px;">🍩</span>ごほうびタイム
       </button>
       <button onclick="gotoRecord()" style="background:#eef2ff;border:2.5px solid #c5d0f8;border-radius:14px;padding:11px 6px;cursor:pointer;font-family:var(--font);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;color:#3a4faa;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
         <span style="font-size:17px;">📊</span>きろく
@@ -156,7 +154,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
       <span style="font-size:13px;font-weight:800;color:#c09090;">🎯 しゅうちゅう中</span>
       <span id="ft-badge" class="hbadge" style="background:#ffe0ea;color:#b02060;"></span>
     </div>
-    <img id="ft-cat" class="cat-img" style="width:70px;height:70px;margin-bottom:6px;" alt="">
+    <img id="ft-cat" class="cat-img" style="width:100px;height:100px;margin-bottom:6px;" alt="">
     <div id="ft-speech" class="speech" style="background:#fff0d8;border:2px solid #ffd94a;"></div>
     <div class="ring-wrap" style="width:210px;height:210px;">
       <svg class="ring-svg" viewBox="0 0 210 210">
@@ -186,7 +184,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
       <span style="font-size:13px;font-weight:800;color:#80a898;">✏️ しゅうちゅう中</span>
       <span id="ff-badge" class="hbadge" style="background:#d4f5e2;color:#1a7040;"></span>
     </div>
-    <img id="ff-cat" class="cat-img" style="width:66px;height:66px;margin-bottom:6px;" alt="">
+    <img id="ff-cat" class="cat-img" style="width:100px;height:100px;margin-bottom:6px;" alt="">
     <div id="ff-speech" class="speech" style="background:#f0fff4;border:2px solid #a8e8a8;color:#2a7050;"></div>
     <div style="position:relative;width:200px;height:200px;background:radial-gradient(circle,#e8fff2 0%,#f0fff6 70%);border-radius:50%;margin:0 auto 18px;border:3px dashed #c0e8d0;display:flex;align-items:center;justify-content:center;">
       <div style="position:absolute;top:10px;right:10px;background:rgba(90,186,136,.12);border:1.5px solid rgba(90,186,136,.3);border-radius:12px;padding:4px 10px;text-align:center;">
@@ -228,7 +226,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
       <div style="font-size:11px;font-weight:700;color:#9a7000;margin-top:5px;">ごうけい <span id="cel-total" style="font-size:17px;font-weight:900;color:#c8920a;"></span> てん</div>
     </div>
     <button id="cel-rw-btn" onclick="goReward()" class="btn" style="background:linear-gradient(145deg,#ffe8f5,#ffc8e8);color:#9c0060;box-shadow:0 4px 16px rgba(255,100,180,.18);">
-      <span class="bi">🍩</span><span class="bt">ご褒美タイム<span class="bs">⭐1てん つかって じゆうタイム＋おやつ</span></span>
+      <span class="bi">🍩</span><span class="bt">ごほうびタイム<span class="bs">⭐1てん つかって じゆうタイム＋おやつ</span></span>
     </button>
     <button onclick="goBreak()" class="btn" style="background:linear-gradient(145deg,#d4eeff,#a8d8f8);color:#0a5a9c;box-shadow:0 4px 16px rgba(80,160,240,.16);">
       <span class="bi">🔁</span><span class="bt">もうひとセット<span class="bs">☕ 10分やすんでから またがんばる</span></span>
@@ -279,16 +277,17 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
 <div id="s-reward" class="screen" style="background:#fff8f0;">
   <div class="blob" style="width:280px;height:280px;background:rgba(255,180,100,.18);top:-70px;right:-50px;"></div>
   <div class="blob" style="width:200px;height:200px;background:rgba(255,210,160,.22);bottom:-50px;left:-50px;"></div>
+  <div id="food-rain" style="position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;"></div>
   <div class="card anim" style="box-shadow:0 8px 48px rgba(220,120,30,.13);">
-    <div style="font-size:32px;font-weight:900;color:#d4720a;text-shadow:0 3px 0 rgba(210,100,0,.13);margin-bottom:2px;">🍩 ご褒美タイム！</div>
+    <div style="font-size:32px;font-weight:900;color:#d4720a;text-shadow:0 3px 0 rgba(210,100,0,.13);margin-bottom:2px;">🍩 ごほうびタイム！</div>
     <div style="font-size:11px;font-weight:700;color:#b09080;margin-bottom:14px;">きょうのじぶんへのプレゼント✨</div>
-    <div style="position:relative;width:200px;height:168px;margin:0 auto 8px;">
-      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);">
-        <svg width="120" height="30" viewBox="0 0 120 30"><ellipse cx="60" cy="20" rx="52" ry="9" fill="#f0e0c8" stroke="#d4c0a0" stroke-width="1.5"/><ellipse cx="60" cy="18" rx="52" ry="7" fill="#f8f0e0" stroke="#d4c0a0" stroke-width="1"/><text id="rw-snack" x="60" y="15" text-anchor="middle" font-size="20">🍩</text></svg>
-      </div>
-      <div style="position:absolute;bottom:24px;left:50%;transform:translateX(-50%);animation:eatBob .5s ease-in-out infinite alternate;">
+    <div style="position:relative;width:200px;height:150px;margin:0 auto 8px;">
+      <!-- 猫 -->
+      <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);animation:eatBob .5s ease-in-out infinite alternate;">
         <img id="rw-cat" class="cat-img" style="width:108px;height:108px;" alt="">
       </div>
+      <!-- 絵文字：猫のお腹あたり・手前に大きく -->
+      <div id="rw-snack" style="position:absolute;bottom:28px;left:calc(50% + 10px);transform:translateX(-50%);font-size:26px;z-index:2;animation:snackBob .6s ease-in-out infinite alternate;filter:drop-shadow(0 2px 6px rgba(0,0,0,.10));">🍩</div>
     </div>
     <div id="rw-speech" class="speech" style="background:#fff0d8;border:2.5px solid #ffcb8a;font-size:14px;box-shadow:0 3px 10px rgba(255,180,80,.16);"></div>
     <div style="display:inline-flex;align-items:center;gap:5px;background:#fff0d8;border:1.5px solid #f0c880;border-radius:18px;padding:4px 12px;font-size:11px;font-weight:700;color:#9a6010;margin-bottom:14px;">⭐ 1ポイント つかったよ</div>
@@ -310,7 +309,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
       </div>
     </div>
     <button onclick="goScreen('s-home')" style="width:100%;background:linear-gradient(145deg,#ffcb8a,#f0a840);border:none;border-radius:20px;padding:16px;font-family:var(--font);font-size:16px;font-weight:900;color:white;cursor:pointer;box-shadow:0 6px 24px rgba(220,120,30,.24);display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .15s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-      <span style="font-size:20px;">🏠</span>おわったらホームへ
+      <span style="font-size:20px;">🏠</span>ホームへ
     </button>
   </div>
 </div>
@@ -337,32 +336,6 @@ const CAT = {
 };
 </script>
 <script>
-// ══ 音声解除 ══
-let audioUnlocked = false;
-function unlockAudio() {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    // 無音を1回鳴らしてブラウザの制限を解除
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    gain.gain.setValueAtTime(0, ctx.currentTime);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.1);
-    audioUnlocked = true;
-    // バナーをアニメで消す
-    const banner = document.getElementById('sound-banner');
-    if (banner) {
-      banner.innerHTML = '<span style="font-size:18px;">🔔</span><span style="font-size:12px;font-weight:800;color:#3a9e6a;">音声オン！OK🎵</span>';
-      banner.style.background = '#d4f5e2';
-      banner.style.borderColor = '#a8e8a8';
-      banner.style.cursor = 'default';
-      banner.onclick = null;
-      setTimeout(() => { banner.style.display = 'none'; }, 1500);
-    }
-  } catch(e) {}
-}
-
 // ══ 状態 ══
 const S = {
   get pts()  { return parseInt(localStorage.getItem('sct:pts')||'0'); },
@@ -390,12 +363,12 @@ function goScreen(id) {
   el.querySelectorAll('.anim').forEach(c=>{c.style.animation='none';requestAnimationFrame(()=>{c.style.animation='';});});
   if (id==='s-home')   initHome();
   if (id==='s-record') initRecord();
+  if (id!=='s-reward') stopFoodRain();
 }
 
 // ══ HOME ══
 function initHome() {
-  const banner = document.getElementById('sound-banner');
-  if (banner) banner.style.display = audioUnlocked ? 'none' : 'flex';
+
   document.getElementById('home-cat').src = CAT.pencil;
   const p = S.pts;
   document.getElementById('home-pts').textContent = p;
@@ -541,10 +514,11 @@ function restartSession() {
   else startFree();
 }
 
-// ══ ご褒美 ══
+// ══ ごほうび ══
 function goReward() {
   if(S.pts<1)return;
   S.pts=S.pts-1;
+  startFoodRain();
   document.getElementById('rw-cat').src=CAT.yay;
   setSp('rw-speech','やったね〜！もぐもぐ😋');
   document.getElementById('rw-snack').textContent='🍩';
@@ -622,6 +596,31 @@ function initRecord() {
     </div>
   `;
   setTimeout(()=>{document.querySelectorAll('[data-h]').forEach(el=>{el.style.height=el.dataset.h+'px';});},80);
+}
+
+// ══ フードレイン ══
+const FOOD_EMOJIS = ['🍩','🍪','🍫','🍓','🧁','🍬','🍭','🌟','⭐','✨'];
+let foodRainTid = null;
+function startFoodRain() {
+  const wrap = document.getElementById('food-rain');
+  if (!wrap) return;
+  wrap.innerHTML = '';
+  for (let i = 0; i < 18; i++) spawnFood(wrap, Math.random() * 2.5);
+  foodRainTid = setInterval(() => spawnFood(wrap, 0), 500);
+}
+function stopFoodRain() {
+  clearInterval(foodRainTid);
+  const wrap = document.getElementById('food-rain');
+  if (wrap) wrap.innerHTML = '';
+}
+function spawnFood(wrap, delay) {
+  const el = document.createElement('div');
+  el.textContent = FOOD_EMOJIS[Math.floor(Math.random() * FOOD_EMOJIS.length)];
+  const size = 20 + Math.random() * 18;
+  const rot = (Math.random() - 0.5) * 80;
+  el.style.cssText = `position:absolute;top:-60px;left:${Math.random()*100}%;font-size:${size}px;opacity:.7;--rot:${rot}deg;animation:foodFall ${3+Math.random()*3}s ${delay}s linear forwards;`;
+  wrap.appendChild(el);
+  el.addEventListener('animationend', () => el.remove());
 }
 
 // ══ ユーティリティ ══
