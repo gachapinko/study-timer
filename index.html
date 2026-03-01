@@ -488,7 +488,7 @@ function setBrkDisp() {
   document.getElementById('brk-ring').style.strokeDashoffset=C*(1-brkSec/600);
 }
 function onBrkDone() {
-  playChime();
+  playBreakChime();
   setSp('brk-speech','やすめた？またがんばろう！💪');
   document.getElementById('brk-ideas').style.display='none';
   document.getElementById('brk-hint').style.display='none';
@@ -598,6 +598,26 @@ function setSp(id,txt) {
   setTimeout(()=>{el.textContent=txt;el.style.opacity='1';},350);
 }
 function pad(n){return String(n).padStart(2,'0');}
+function playBreakChime() {
+  // 休み終了：[392,494,587,784]を5回くり返す
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const freqs = [392, 494, 587, 784];
+    const interval = 0.25, duration = 0.9, repeatGap = 1.6;
+    for (let r = 0; r < 5; r++) {
+      freqs.forEach((freq, i) => {
+        const osc = ctx.createOscillator(), gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.frequency.value = freq; osc.type = 'sine';
+        const t = ctx.currentTime + r * repeatGap + i * interval;
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.28, t + 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + duration);
+        osc.start(t); osc.stop(t + duration);
+      });
+    }
+  } catch(e) {}
+}
 function playChime(){
   try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[523,659,784,1047].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=f;o.type='sine';const t=ctx.currentTime+i*.18;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.26,t+.06);g.gain.exponentialRampToValueAtTime(.001,t+.7);o.start(t);o.stop(t+.7);});}catch(e){}
 }
