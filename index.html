@@ -82,11 +82,6 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
   <div class="blob" style="width:220px;height:220px;background:rgba(200,230,255,.28);bottom:-50px;left:-40px;"></div>
   <div class="card anim" style="box-shadow:0 8px 48px rgba(100,140,220,.13);">
     <div style="font-size:12px;font-weight:800;color:var(--text-light);margin-bottom:4px;letter-spacing:.04em;">いっしょにがんばるタイマー</div>
-    <!-- 音声解除バナー -->
-    <div id="sound-banner" onclick="unlockAudio()" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#fff0d8;border:2px solid #ffcb8a;border-radius:14px;padding:10px 16px;margin-bottom:12px;cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#ffe8c0'" onmouseout="this.style.background='#fff0d8'">
-      <span style="font-size:20px;">🔔</span>
-      <span style="font-size:12px;font-weight:800;color:#a06010;">タップして音をオンにする</span>
-    </div>
     <!-- 吹き出し（猫の上に独立配置・尻尾は下向き） -->
     <div style="position:relative;display:inline-block;background:#fff3c0;border:2.5px solid #ffd94a;border-radius:18px;padding:7px 14px;font-size:12px;font-weight:800;color:var(--text);white-space:nowrap;animation:cardIn .5s .5s both;box-shadow:0 2px 8px rgba(255,210,80,.22);margin-bottom:14px;">
       きょうもいっしょに✨
@@ -310,7 +305,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
       </div>
     </div>
     <button onclick="goScreen('s-home')" style="width:100%;background:linear-gradient(145deg,#ffcb8a,#f0a840);border:none;border-radius:20px;padding:16px;font-family:var(--font);font-size:16px;font-weight:900;color:white;cursor:pointer;box-shadow:0 6px 24px rgba(220,120,30,.24);display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .15s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
-      <span style="font-size:20px;">🏠</span>おわったらホームへ
+      <span style="font-size:20px;">🏠</span>ホームへ
     </button>
   </div>
 </div>
@@ -337,32 +332,6 @@ const CAT = {
 };
 </script>
 <script>
-// ══ 音声解除 ══
-let audioUnlocked = false;
-function unlockAudio() {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    // 無音を1回鳴らしてブラウザの制限を解除
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain); gain.connect(ctx.destination);
-    gain.gain.setValueAtTime(0, ctx.currentTime);
-    osc.start(ctx.currentTime);
-    osc.stop(ctx.currentTime + 0.1);
-    audioUnlocked = true;
-    // バナーをアニメで消す
-    const banner = document.getElementById('sound-banner');
-    if (banner) {
-      banner.innerHTML = '<span style="font-size:18px;">🔔</span><span style="font-size:12px;font-weight:800;color:#3a9e6a;">音声オン！OK🎵</span>';
-      banner.style.background = '#d4f5e2';
-      banner.style.borderColor = '#a8e8a8';
-      banner.style.cursor = 'default';
-      banner.onclick = null;
-      setTimeout(() => { banner.style.display = 'none'; }, 1500);
-    }
-  } catch(e) {}
-}
-
 // ══ 状態 ══
 const S = {
   get pts()  { return parseInt(localStorage.getItem('sct:pts')||'0'); },
@@ -394,8 +363,6 @@ function goScreen(id) {
 
 // ══ HOME ══
 function initHome() {
-  const banner = document.getElementById('sound-banner');
-  if (banner) banner.style.display = audioUnlocked ? 'none' : 'flex';
   document.getElementById('home-cat').src = CAT.pencil;
   const p = S.pts;
   document.getElementById('home-pts').textContent = p;
