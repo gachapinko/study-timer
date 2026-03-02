@@ -390,6 +390,29 @@ const CAT = {
 };
 </script>
 <script>
+// ══ Audio Context ══
+let _audioCtx = null;
+function getAudioCtx() {
+  if (!_audioCtx) {
+    _audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (_audioCtx.state === 'suspended') {
+    _audioCtx.resume();
+  }
+  return _audioCtx;
+}
+function unlockAudio() {
+  // 無音を鳴らしてiOSの制限を解除
+  try {
+    const ctx = getAudioCtx();
+    const buf = ctx.createBuffer(1, 1, 22050);
+    const src = ctx.createBufferSource();
+    src.buffer = buf;
+    src.connect(ctx.destination);
+    src.start(0);
+  } catch(e) {}
+}
+
 // ══ 状態 ══
 const S = {
   get pts()  { return parseInt(localStorage.getItem('sct:pts')||'0'); },
@@ -440,7 +463,7 @@ function startMode(mode) {
   if (mode==='timer') { document.getElementById('tsel-cat').src=CAT.pencil; goScreen('s-tsel'); }
   else startFree();
 }
-function startTimer(min) { S.minutes=min; initFT(); goScreen('s-ftimer'); }
+function startTimer(min) { unlockAudio(); S.minutes=min; initFT(); goScreen('s-ftimer'); }
 
 // ══ タイマー ══
 let ftTid=null, ftSec=0, ftTotal=0;
@@ -484,7 +507,7 @@ const FF_PH=[
 const FF_SP=['じぶんのペースでいいよ🍀','5分！よくがんばってるね✨','10分も集中できてる！','もうすこし！ファイト！','20分超え！ほんとにえらい！🌈'];
 
 function startFree() {
-  clearInterval(ffTid); ffEl=0;
+  unlockAudio(); clearInterval(ffTid); ffEl=0;
   document.getElementById('ff-cat').src=CAT.pencil;
   document.getElementById('ff-badge').textContent=S.sessionNum+'セット目';
   setSp('ff-speech',FF_SP[0]); updateFFPhase();
@@ -526,7 +549,7 @@ let brkTid=null, brkSec=0;
 const BRK_SP=['ゆっくりやすんでね〜☁️','目をとじてのんびりしよう👀','体をのばすといいよ🙆','もうすこしでじかんだよ〜','そろそろじゅんびしようか✨'];
 
 function goBreak() {
-  clearInterval(brkTid); brkSec=600;
+  unlockAudio(); clearInterval(brkTid); brkSec=600;
   // 先に画面遷移してからDOMを触る
   goScreen('s-break');
   const R=86,C=2*Math.PI*R;
@@ -575,7 +598,7 @@ function earlyStart() {
   restartSession();
 }
 function restartSession() {
-  S.sessionNum++;
+  unlockAudio(); S.sessionNum++;
   if(S.mode==='timer'){initFT();goScreen('s-ftimer');}
   else startFree();
 }
@@ -672,7 +695,7 @@ const PST_SP = [
 ];
 
 function startPrestart(min) {
-  clearInterval(pstTid);
+  unlockAudio(); clearInterval(pstTid);
   pstTotal = min * 60; pstSec = pstTotal;
   const R = 86, C = 2 * Math.PI * R;
   const ring = document.getElementById('pst-ring');
@@ -748,9 +771,8 @@ function setSp(id,txt) {
 }
 function pad(n){return String(n).padStart(2,'0');}
 function playBreakChime() {
-  // 休み終了：[392,494,587,784]を5回くり返す
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const ctx = getAudioCtx();
     const freqs = [392, 494, 587, 784];
     const interval = 0.25, duration = 0.9, repeatGap = 1.6;
     for (let r = 0; r < 5; r++) {
@@ -768,7 +790,7 @@ function playBreakChime() {
   } catch(e) {}
 }
 function playChime(){
-  try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[523,659,784,1047].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=f;o.type='sine';const t=ctx.currentTime+i*.18;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.26,t+.06);g.gain.exponentialRampToValueAtTime(.001,t+.7);o.start(t);o.stop(t+.7);});}catch(e){}
+  try{const ctx=getAudioCtx();[523,659,784,1047].forEach((f,i)=>{const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);o.frequency.value=f;o.type='sine';const t=ctx.currentTime+i*.18;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.26,t+.06);g.gain.exponentialRampToValueAtTime(.001,t+.7);o.start(t);o.stop(t+.7);});}catch(e){}
 }
 function confirmQuit(){
   if(confirm('ほんとうにやめる？\n（きろくには のこらないよ）')){clearInterval(ftTid);clearInterval(ffTid);goScreen('s-home');}
