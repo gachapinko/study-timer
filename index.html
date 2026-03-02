@@ -529,6 +529,7 @@ function updateFFPhase() {
 // ══ 完了 ══
 function onComplete() {
   clearInterval(ftTid); clearInterval(ffTid);
+  if (_audioCtx && _audioCtx.state === 'suspended') _audioCtx.resume();
   playChime(); addSession(); initCelebrate();
   setTimeout(()=>goScreen('s-celebrate'),400);
 }
@@ -583,6 +584,7 @@ function setBrkDisp() {
   }
 }
 function onBrkDone() {
+  if (_audioCtx && _audioCtx.state === 'suspended') _audioCtx.resume();
   playBreakChime();
   setSp('brk-speech','やすめた？またがんばろう！💪');
   document.getElementById('brk-ideas').style.display='none';
@@ -723,6 +725,7 @@ function setPstDisp() {
   document.getElementById('pst-ring').style.strokeDashoffset = C * (1 - pstSec / pstTotal);
 }
 function onPrestartAlarm() {
+  if (_audioCtx && _audioCtx.state === 'suspended') _audioCtx.resume();
   playBreakChime();
   setSp('pst-speech', 'じかんだよ！がんばれ〜！📚');
   document.getElementById('pst-label').textContent = '';
