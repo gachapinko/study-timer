@@ -11,8 +11,8 @@
 <meta name="apple-mobile-web-app-title" content="がんばるタイマー">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
-:root { --font:'Nunito','Hiragino Maru Gothic Pro',sans-serif; --text:#3a3a5c; --text-light:#9090b8; --white:#ffffff; }
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700;800;900&family=Nunito:wght@400;600;700;800;900&display=swap');
+:root { --font:'M PLUS Rounded 1c','Hiragino Maru Gothic Pro','Nunito',sans-serif; --text:#3a3a5c; --text-light:#9090b8; --white:#ffffff; }
 * { box-sizing:border-box; margin:0; padding:0; }
 body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
 
@@ -20,27 +20,27 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
 .screen.active { display:flex; }
 .screen.col { flex-direction:column; align-items:stretch; }
 
-.card { background:var(--white); border-radius:36px; padding:22px 26px 28px; width:380px; max-width:96vw; text-align:center; position:relative; z-index:1; }
+.card { background:rgba(255,255,255,0.82); border-radius:36px; padding:22px 26px 28px; width:380px; max-width:96vw; text-align:center; position:relative; z-index:1; border:2px solid rgba(255,255,255,0.85); box-shadow:0 6px 0 rgba(195,170,225,0.28),inset 0 1px 0 rgba(255,255,255,0.9); }
 .anim { animation:cardIn .5s cubic-bezier(.34,1.56,.64,1) both; }
 @keyframes cardIn { from{opacity:0;transform:translateY(20px) scale(.94)} to{opacity:1;transform:translateY(0) scale(1)} }
 
 .blob { position:fixed; border-radius:50%; filter:blur(70px); pointer-events:none; z-index:0; }
 
-.btn { border:none; border-radius:18px; padding:15px 18px; font-family:var(--font); font-size:15px; font-weight:800; cursor:pointer; width:100%; display:flex; align-items:center; gap:12px; transition:transform .15s,box-shadow .15s; -webkit-tap-highlight-color:transparent; margin-bottom:10px; }
-.btn:hover { transform:translateY(-3px); }
-.btn:active { transform:scale(.97); }
+.btn { border:none; border-radius:999px; padding:15px 22px; font-family:var(--font); font-size:15px; font-weight:800; cursor:pointer; width:100%; display:flex; align-items:center; gap:12px; transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4),box-shadow .15s; -webkit-tap-highlight-color:transparent; margin-bottom:10px; box-shadow:0 4px 0 rgba(0,0,0,0.10); }
+.btn:hover { transform:translateY(-3px) scale(1.02); }
+.btn:active { transform:translateY(4px); box-shadow:none; }
 .btn .bi { font-size:22px; flex-shrink:0; }
 .btn .bt { flex:1; text-align:left; font-size:14px; }
 .btn .bs { display:block; font-size:10px; font-weight:600; opacity:.75; margin-top:2px; }
 
 .hrow { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
-.back-btn { background:rgba(0,0,0,.06); border:none; border-radius:12px; width:40px; height:40px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:transform .1s; font-family:var(--font); font-weight:800; }
+.back-btn { background:rgba(255,255,255,0.7); border:none; border-radius:50%; width:40px; height:40px; font-size:18px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4); font-family:var(--font); font-weight:800; box-shadow:0 3px 0 rgba(180,160,220,0.2); }
 .back-btn:active { transform:scale(.9); }
-.hbadge { border-radius:12px; padding:5px 10px; font-size:11px; font-weight:700; }
+.hbadge { border-radius:999px; padding:5px 12px; font-size:11px; font-weight:700; }
 
 .cat-img { object-fit:contain; display:block; margin:0 auto; }
 
-.speech { border-radius:16px; padding:9px 16px; font-size:13px; font-weight:800; color:var(--text); display:inline-block; margin-bottom:16px; transition:opacity .4s; }
+.speech { border-radius:20px; padding:10px 18px; font-size:13px; font-weight:800; color:var(--text); display:inline-block; margin-bottom:16px; transition:opacity .4s; }
 
 .ring-wrap { position:relative; margin:0 auto 16px; }
 .ring-svg { position:absolute; inset:0; width:100%; height:100%; transform:rotate(-90deg); }
@@ -57,14 +57,14 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
 .task-box { border-radius:14px; padding:11px 14px; display:flex; align-items:center; gap:10px; margin-bottom:18px; text-align:left; }
 .task-text { font-size:13px; font-weight:700; color:var(--text); flex:1; }
 
-.quit-btn { background:none; border:1.5px solid #ddd; border-radius:10px; padding:5px 18px; font-family:var(--font); font-size:11px; font-weight:700; color:#c0c0c0; cursor:pointer; transition:color .15s,border-color .15s; display:block; margin:10px auto 0; }
+.quit-btn { background:none; border:1.5px solid #ddd; border-radius:999px; padding:5px 18px; font-family:var(--font); font-size:11px; font-weight:700; color:#c0c0c0; cursor:pointer; transition:color .15s,border-color .15s; display:block; margin:10px auto 0; }
 .quit-btn:hover { color:#e07090; border-color:#e07090; }
 
 .confetti-wrap { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
 .cp { position:absolute; top:-20px; border-radius:2px; animation:cfFall linear forwards; }
 @keyframes cfFall { 0%{transform:translateY(0) rotate(0deg);opacity:1} 80%{opacity:1} 100%{transform:translateY(110vh) rotate(720deg);opacity:0} }
 
-.snack-btn { background:#fff0d8; border:2.5px solid transparent; border-radius:12px; padding:7px 9px; font-size:18px; cursor:pointer; transition:transform .15s,border-color .15s; -webkit-tap-highlight-color:transparent; }
+.snack-btn { background:#fff0d8; border:2.5px solid transparent; border-radius:999px; padding:7px 9px; font-size:18px; cursor:pointer; transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4),border-color .15s; -webkit-tap-highlight-color:transparent; }
 .snack-btn:hover { transform:scale(1.15); }
 .snack-btn.on { border-color:#ffcb8a; background:white; box-shadow:0 4px 14px rgba(220,120,30,.2); transform:scale(1.18); }
 
@@ -89,7 +89,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
   <div class="blob" style="width:300px;height:300px;background:rgba(180,210,250,.32);top:-80px;right:-60px;"></div>
   <div class="blob" style="width:220px;height:220px;background:rgba(200,230,255,.28);bottom:-50px;left:-40px;"></div>
   <div class="card anim" style="box-shadow:0 8px 48px rgba(100,140,220,.13);">
-    <div style="font-size:12px;font-weight:800;color:var(--text-light);margin-bottom:8px;letter-spacing:.04em;">いっしょにがんばるタイマー</div>
+    <div style="font-size:14px;font-weight:900;letter-spacing:.06em;margin-bottom:8px;background:linear-gradient(90deg,#e8a0bf,#b39ddb,#81c8e8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;filter:drop-shadow(0 2px 0 rgba(210,170,230,0.35));">いっしょにがんばるタイマー ✨</div>
 
     <!-- 吹き出し（猫の上に独立配置・尻尾は下向き） -->
     <div style="position:relative;display:inline-block;background:#fff3c0;border:2.5px solid #ffd94a;border-radius:18px;padding:7px 14px;font-size:12px;font-weight:800;color:var(--text);white-space:nowrap;animation:cardIn .5s .5s both;box-shadow:0 2px 8px rgba(255,210,80,.22);margin-bottom:16px;">
@@ -111,18 +111,18 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
     </div>
     <div style="font-size:11px;font-weight:800;color:var(--text-light);margin-bottom:10px;letter-spacing:.05em;">▼ モードをえらんでね</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:14px;">
-      <button onclick="startMode('timer')" style="background:linear-gradient(145deg,#ffe0e8,#ffb3c6);color:#b02060;border:none;border-radius:20px;padding:16px 8px 14px;cursor:pointer;font-family:var(--font);font-weight:800;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:5px;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 16px rgba(255,100,150,.2);" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+      <button onclick="startMode('timer')" style="background:linear-gradient(145deg,#ffe0e8,#ffb3c6);color:#b02060;border:none;border-radius:24px;padding:16px 8px 14px;cursor:pointer;font-family:var(--font);font-weight:800;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:5px;transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4),box-shadow .15s;box-shadow:0 4px 0 rgba(180,80,110,0.22);" onmouseover="this.style.transform='translateY(-3px) scale(1.03)'" onmouseout="this.style.transform=''" onmousedown="this.style.transform='translateY(4px)';this.style.boxShadow='none'" onmouseup="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(180,80,110,0.22)'"  ontouchstart="this.style.transform='translateY(4px)';this.style.boxShadow='none'" ontouchend="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(180,80,110,0.22)'"  >
         <span style="font-size:30px;">⏱️</span><span>タイマーモード</span><span style="font-size:9px;opacity:.8;">15分 / 25分</span>
       </button>
-      <button onclick="startMode('free')" style="background:linear-gradient(145deg,#d4f5e2,#a8e8c0);color:#1a7040;border:none;border-radius:20px;padding:16px 8px 14px;cursor:pointer;font-family:var(--font);font-weight:800;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:5px;transition:transform .15s,box-shadow .15s;box-shadow:0 4px 16px rgba(80,200,120,.18);" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+      <button onclick="startMode('free')" style="background:linear-gradient(145deg,#d4f5e2,#a8e8c0);color:#1a7040;border:none;border-radius:24px;padding:16px 8px 14px;cursor:pointer;font-family:var(--font);font-weight:800;font-size:13px;display:flex;flex-direction:column;align-items:center;gap:5px;transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4),box-shadow .15s;box-shadow:0 4px 0 rgba(60,150,90,0.22);" onmouseover="this.style.transform='translateY(-3px) scale(1.03)'" onmouseout="this.style.transform=''" onmousedown="this.style.transform='translateY(4px)';this.style.boxShadow='none'" onmouseup="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(60,150,90,0.22)'" ontouchstart="this.style.transform='translateY(4px)';this.style.boxShadow='none'" ontouchend="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(60,150,90,0.22)'" >
         <span style="font-size:30px;">✏️</span><span style="font-size:12px;">おわったよ<br>モード</span><span style="font-size:9px;opacity:.8;">じぶんでおわりにする</span>
       </button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-      <button onclick="goScreen('s-prestart')" style="background:#e8f0ff;border:2.5px solid #c0d0f8;border-radius:14px;padding:11px 6px;cursor:pointer;font-family:var(--font);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;color:#3a5ab8;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <button onclick="goScreen('s-prestart')" style="background:#e8f0ff;border:2.5px solid #c0d0f8;border-radius:999px;padding:11px 6px;cursor:pointer;font-family:var(--font);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;color:#3a5ab8;transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4);box-shadow:0 3px 0 rgba(120,150,220,0.2);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
         <span style="font-size:17px;">⏰</span>はじめるタイマー
       </button>
-      <button onclick="gotoRecord()" style="background:#eef2ff;border:2.5px solid #c5d0f8;border-radius:14px;padding:11px 6px;cursor:pointer;font-family:var(--font);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;color:#3a4faa;transition:transform .15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
+      <button onclick="gotoRecord()" style="background:#eef2ff;border:2.5px solid #c5d0f8;border-radius:999px;padding:11px 6px;cursor:pointer;font-family:var(--font);font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center;gap:5px;color:#3a4faa;transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4);box-shadow:0 3px 0 rgba(120,140,200,0.2);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform=''">
         <span style="font-size:17px;">📊</span>きろく
       </button>
     </div>
@@ -140,11 +140,11 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
     </div>
     <img id="tsel-cat" class="cat-img" style="width:96px;height:96px;margin-bottom:8px;" alt="">
     <div class="speech" style="background:#fff0d8;border:2px solid #ffd94a;margin-bottom:20px;">まかせて！がんばるよ🎯</div>
-    <button class="btn" onclick="startTimer(15)" style="background:linear-gradient(145deg,#ffe0e8,#ffb3c6);color:#b02060;box-shadow:0 4px 18px rgba(255,100,150,.2);">
-      <span class="bi">⏱️</span><span class="bt">15分<span class="bs">みじかくしゅうちゅう！</span></span><span style="opacity:.6;">→</span>
+    <button class="btn" onclick="startTimer(15)" style="background:linear-gradient(145deg,#ffe0e8,#ffb3c6);color:#b02060;box-shadow:0 4px 0 rgba(180,80,110,0.25);">
+      <span class="bi">⏱️</span><span class="bt">15ふん<span class="bs">みじかくしゅうちゅう！</span></span><span style="opacity:.6;">✨</span>
     </button>
-    <button class="btn" onclick="startTimer(25)" style="background:linear-gradient(145deg,#ffd0dc,#ff9ab8);color:#8a0040;box-shadow:0 4px 18px rgba(255,80,130,.23);margin-bottom:0;">
-      <span class="bi">⏱️</span><span class="bt">25分<span class="bs">ポモドーロでしっかり！</span></span><span style="opacity:.6;">→</span>
+    <button class="btn" onclick="startTimer(25)" style="background:linear-gradient(145deg,#ffd0dc,#ff9ab8);color:#8a0040;box-shadow:0 4px 0 rgba(160,60,90,0.25);margin-bottom:0;">
+      <span class="bi">⏱️</span><span class="bt">25ふん<span class="bs">ポモドーロでしっかり！</span></span><span style="opacity:.6;">✨</span>
     </button>
   </div>
 </div>
@@ -204,7 +204,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
     <div class="task-box" style="background:#f4fef8;border:2px solid #d0eed8;">
       <span style="font-size:17px;">📝</span><span class="task-text">きょうのべんきょう</span>
     </div>
-    <button onclick="onComplete()" style="width:100%;background:linear-gradient(145deg,#6ad4a0,#4abe88);border:none;border-radius:20px;padding:18px;font-family:var(--font);font-size:19px;font-weight:900;color:white;cursor:pointer;box-shadow:0 6px 24px rgba(60,160,100,.26);display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .15s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+    <button onclick="onComplete()" style="width:100%;background:linear-gradient(145deg,#6ad4a0,#4abe88);border:none;border-radius:999px;padding:18px;font-family:var(--font);font-size:19px;font-weight:900;color:white;cursor:pointer;box-shadow:0 4px 0 rgba(40,130,80,0.3);display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4),box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px) scale(1.02)'" onmouseout="this.style.transform=''" onmousedown="this.style.transform='translateY(4px)';this.style.boxShadow='none'" onmouseup="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(40,130,80,0.3)'" ontouchstart="this.style.transform='translateY(4px)';this.style.boxShadow='none'" ontouchend="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(40,130,80,0.3)'" >
       <span style="font-size:23px;">🙌</span>おわった！
     </button>
     <button class="quit-btn" onclick="confirmQuit()">やめる</button>
@@ -230,13 +230,13 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
       </div>
       <div style="font-size:11px;font-weight:700;color:#9a7000;margin-top:5px;">ごうけい <span id="cel-total" style="font-size:17px;font-weight:900;color:#c8920a;"></span> てん</div>
     </div>
-    <button id="cel-rw-btn" onclick="goReward()" class="btn" style="background:linear-gradient(145deg,#ffe8f5,#ffc8e8);color:#9c0060;box-shadow:0 4px 16px rgba(255,100,180,.18);">
+    <button id="cel-rw-btn" onclick="goReward()" class="btn" style="background:linear-gradient(145deg,#ffe8f5,#ffc8e8);color:#9c0060;box-shadow:0 4px 0 rgba(180,80,140,0.22);">
       <span class="bi">🍩</span><span class="bt">ごほうびタイム<span class="bs">⭐1てん つかって じゆうタイム＋おやつ</span></span>
     </button>
-    <button onclick="goBreak()" class="btn" style="background:linear-gradient(145deg,#d4eeff,#a8d8f8);color:#0a5a9c;box-shadow:0 4px 16px rgba(80,160,240,.16);">
+    <button onclick="goBreak()" class="btn" style="background:linear-gradient(145deg,#d4eeff,#a8d8f8);color:#0a5a9c;box-shadow:0 4px 0 rgba(60,120,180,0.22);">
       <span class="bi">🔁</span><span class="bt">もうひとセット<span class="bs">☕ 10分やすんでから またがんばる</span></span>
     </button>
-    <button onclick="goScreen('s-home')" class="btn" style="background:#f0f2ff;color:#3a4faa;border:2px solid #d8deff;box-shadow:0 3px 12px rgba(100,120,220,.08);margin-bottom:0;">
+    <button onclick="goScreen('s-home')" class="btn" style="background:#f0f2ff;color:#3a4faa;border:2px solid #d8deff;box-shadow:0 3px 0 rgba(100,120,200,0.15);margin-bottom:0;">
       <span class="bi">🏠</span><span class="bt">ホームへ<span class="bs">きょうはここまで！おつかれさま</span></span>
     </button>
   </div>
@@ -255,10 +255,10 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
     <img id="prestart-cat" class="cat-img" style="width:96px;height:96px;margin-bottom:8px;animation:catSway 3s ease-in-out infinite;" alt="">
     <div class="speech" style="background:#e8f0ff;border:2px solid #b0c4f8;color:#3a5ab8;margin-bottom:20px;">なんぷんしたらはじめる？🌙</div>
     <div style="display:flex;flex-direction:column;gap:14px;">
-      <button class="btn" onclick="startPrestart(5)" style="background:linear-gradient(145deg,#dde8ff,#c0d4ff);color:#2a4ab0;box-shadow:0 4px 18px rgba(80,120,240,.18);">
+      <button class="btn" onclick="startPrestart(5)" style="background:linear-gradient(145deg,#dde8ff,#c0d4ff);color:#2a4ab0;box-shadow:0 4px 0 rgba(80,100,200,0.25);">
         <span class="bi">⏰</span><span class="bt">5分後にはじめる<span class="bs">ちょっとだけ準備してから！</span></span><span style="opacity:.6;">→</span>
       </button>
-      <button class="btn" onclick="startPrestart(10)" style="background:linear-gradient(145deg,#d4dcff,#b0c0f8);color:#1a3aa0;box-shadow:0 4px 18px rgba(60,100,220,.2);margin-bottom:0;">
+      <button class="btn" onclick="startPrestart(10)" style="background:linear-gradient(145deg,#d4dcff,#b0c0f8);color:#1a3aa0;box-shadow:0 4px 0 rgba(60,80,190,0.25);margin-bottom:0;">
         <span class="bi">⏰</span><span class="bt">10分後にはじめる<span class="bs">もうすこしゆっくりしてから！</span></span><span style="opacity:.6;">→</span>
       </button>
     </div>
@@ -284,7 +284,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
         <div class="ring-unit" id="pst-unit">でスタート 📚</div>
       </div>
     </div>
-    <button id="pst-go-btn" onclick="onPrestartDone()" style="width:100%;background:linear-gradient(145deg,#6070e8,#4050d0);border:none;border-radius:20px;padding:20px;font-family:var(--font);font-size:18px;font-weight:900;color:white;cursor:pointer;box-shadow:0 6px 24px rgba(60,80,220,.3);display:none;align-items:center;justify-content:center;gap:10px;transition:transform .15s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+    <button id="pst-go-btn" onclick="onPrestartDone()" style="width:100%;background:linear-gradient(145deg,#6070e8,#4050d0);border:none;border-radius:999px;padding:20px;font-family:var(--font);font-size:18px;font-weight:900;color:white;cursor:pointer;box-shadow:0 4px 0 rgba(40,60,180,0.3);display:none;align-items:center;justify-content:center;gap:10px;transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4),box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px) scale(1.02)'" onmouseout="this.style.transform=''" onmousedown="this.style.transform='translateY(4px)';this.style.boxShadow='none'" onmouseup="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(40,60,180,0.3)'" ontouchstart="this.style.transform='translateY(4px)';this.style.boxShadow='none'" ontouchend="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(40,60,180,0.3)'" >
       <span style="font-size:22px;">📚</span>さあ、はじめよう！
     </button>
     <button class="quit-btn" onclick="cancelPrestart()">やめる</button>
@@ -319,11 +319,11 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
         <span style="background:white;border-radius:9px;padding:4px 9px;font-size:11px;font-weight:700;">😮‍💨 深呼吸</span>
       </div>
     </div>
-    <button id="brk-start" onclick="restartSession()" style="width:100%;background:linear-gradient(145deg,#5aaed0,#3a8eb8);border:none;border-radius:20px;padding:18px;font-family:var(--font);font-size:17px;font-weight:900;color:white;cursor:pointer;box-shadow:0 6px 24px rgba(60,140,200,.26);display:none;align-items:center;justify-content:center;gap:10px;transition:transform .15s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+    <button id="brk-start" onclick="restartSession()" style="width:100%;background:linear-gradient(145deg,#5aaed0,#3a8eb8);border:none;border-radius:999px;padding:18px;font-family:var(--font);font-size:17px;font-weight:900;color:white;cursor:pointer;box-shadow:0 4px 0 rgba(40,110,160,0.3);display:none;align-items:center;justify-content:center;gap:10px;transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4),box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px) scale(1.02)'" onmouseout="this.style.transform=''" onmousedown="this.style.transform='translateY(4px)';this.style.boxShadow='none'" onmouseup="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(40,110,160,0.3)'" ontouchstart="this.style.transform='translateY(4px)';this.style.boxShadow='none'" ontouchend="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(40,110,160,0.3)'" >
       <span style="font-size:22px;">🎯</span>はじめる！
     </button>
     <div id="brk-hint" style="font-size:11px;font-weight:600;color:#88a8c0;margin-top:10px;text-align:center;">チャイムが鳴ったらはじめよう</div>
-    <button id="brk-early" onclick="earlyStart()" style="margin-top:10px;width:100%;background:none;border:2px solid #b8d8ee;border-radius:14px;padding:9px;font-family:var(--font);font-size:12px;font-weight:700;color:#88a8c0;cursor:pointer;transition:color .15s,border-color .15s,background .15s;" onmouseover="this.style.color='#3a8eb8';this.style.borderColor='#3a8eb8';this.style.background='#eaf6ff';" onmouseout="this.style.color='#88a8c0';this.style.borderColor='#b8d8ee';this.style.background='none';">もう元気！ はじめる →</button>
+    <button id="brk-early" onclick="earlyStart()" style="margin-top:10px;width:100%;background:none;border:2px solid #b8d8ee;border-radius:999px;padding:9px;font-family:var(--font);font-size:12px;font-weight:700;color:#88a8c0;cursor:pointer;transition:color .15s,border-color .15s,background .15s;" onmouseover="this.style.color='#3a8eb8';this.style.borderColor='#3a8eb8';this.style.background='#eaf6ff';" onmouseout="this.style.color='#88a8c0';this.style.borderColor='#b8d8ee';this.style.background='none';">もう元気！ はじめる ✨</button>
   </div>
 </div>
 
@@ -362,7 +362,7 @@ body { font-family:var(--font); min-height:100vh; overflow-x:hidden; }
         <span style="background:white;border-radius:9px;padding:4px 10px;font-size:11px;font-weight:700;">💤 ごろごろ</span>
       </div>
     </div>
-    <button onclick="goScreen('s-home')" style="width:100%;background:linear-gradient(145deg,#ffcb8a,#f0a840);border:none;border-radius:20px;padding:16px;font-family:var(--font);font-size:16px;font-weight:900;color:white;cursor:pointer;box-shadow:0 6px 24px rgba(220,120,30,.24);display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .15s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform=''">
+    <button onclick="goScreen('s-home')" style="width:100%;background:linear-gradient(145deg,#ffcb8a,#f0a840);border:none;border-radius:999px;padding:16px;font-family:var(--font);font-size:16px;font-weight:900;color:white;cursor:pointer;box-shadow:0 4px 0 rgba(180,100,20,0.28);display:flex;align-items:center;justify-content:center;gap:10px;transition:transform .2s cubic-bezier(0.175,0.885,0.32,1.4),box-shadow .15s;" onmouseover="this.style.transform='translateY(-3px) scale(1.02)'" onmouseout="this.style.transform=''" onmousedown="this.style.transform='translateY(4px)';this.style.boxShadow='none'" onmouseup="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(180,100,20,0.28)'" ontouchstart="this.style.transform='translateY(4px)';this.style.boxShadow='none'" ontouchend="this.style.transform='';this.style.boxShadow='0 4px 0 rgba(180,100,20,0.28)'" >
       <span style="font-size:20px;">🏠</span>ホームへ
     </button>
   </div>
